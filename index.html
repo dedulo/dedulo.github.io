@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Európská Portugalčina B1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .stat-item {
+            background: #f0f4ff;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .menu-item {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .menu-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .menu-text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        .progress-bar {
+            background: #e0e5ff;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .tracker-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .tracker-table th {
+            background: #f0f4ff;
+            padding: 10px 5px;
+            font-size: 12px;
+            text-align: left;
+            border-radius: 5px;
+        }
+        
+        .tracker-table td {
+            padding: 10px 5px;
+            font-size: 13px;
+            border-top: 1px solid #e0e5ff;
+        }
+        
+        .check {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: #d4edda;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 20px;
+        }
+        
+        .check.checked {
+            background: #28a745;
+            color: white;
+        }
+        
+        .week-item {
+            background: #f8f9ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .week-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .week-topic {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .speaking-score {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .score-item {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .score-label {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .score-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .score-bar {
+            background: #e0e5ff;
+            height: 6px;
+            border-radius: 3px;
+            margin: 5px 0;
+        }
+        
+        .score-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 6px;
+            border-radius: 3px;
+        }
+        
+        .vocab-card {
+            background: #f8f9ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .vocab-pt {
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .vocab-sk {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .vocab-status {
+            width: 24px;
+            height: 24px;
+            background: #d4edda;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 24px;
+            font-size: 14px;
+        }
+        
+        .vocab-status.fail {
+            background: #f8d7da;
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .back-btn {
+            background: #666;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HOME -->
+        <div id="home">
+            <div class="header">
+                <div class="title">🇵🇹 Európská Portugalčina B1</div>
+                <div class="subtitle">Juraj Chromík | Prague | Dnes: 9.6.2026</div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Streak</div>
+                        <div class="stat-value">⭐ 3 dni</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Dní splnené</div>
+                        <div class="stat-value">📅 1/3</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Minúty dnes</div>
+                        <div class="stat-value">🕐 30</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu">
+                <div class="menu-item" onclick="showSection('lekcia')">
+                    <div class="menu-icon">📚</div>
+                    <div class="menu-text">Dnešná lekcia</div>
+                </div>
+                <div class="menu-item" onclick="showSection('speaking')">
+                    <div class="menu-icon">🗣️</div>
+                    <div class="menu-text">Rozprávanie</div>
+                </div>
+                <div class="menu-item" onclick="showSection('opakovanie')">
+                    <div class="menu-icon">🔁</div>
+                    <div class="menu-text">Opakovanie</div>
+                </div>
+                <div class="menu-item" onclick="showSection('progres')">
+                    <div class="menu-icon">📊</div>
+                    <div class="menu-text">Progres</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Mesačný cieľ</div>
+                <div style="font-size: 14px; color: #666; margin-bottom: 10px;">B1 do septembra 2026 🎯</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 13%"></div>
+                </div>
+                <div style="font-size: 12px; color: #666;">12/90 dní (13%)</div>
+            </div>
+        </div>
+        
+        <!-- DNEŠNÁ LEKCIA -->
+        <div id="lekcia" class="hidden">
+            <div class="back-btn" onclick="showSection('home')">← Späť</div>
+            <div class="section">
+                <div class="section-title">Dnešná lekcia</div>
+                <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Téma: Ser vs. Estar</div>
+                <div style="font-size: 13px; color: #666;">Cieľ: 30 min, 4 blokov</div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Tréning dnes</div>
+                <table class="tracker-table">
+                    <tr>
+                        <th>Úloha</th>
+                        <th>Čas</th>
+                        <th>Splnené</th>
+                    </tr>
+                    <tr>
+                        <td>Slovíčka (Anki)</td>
+                        <td>10 min</td>
+                        <td><span class="check" onclick="toggleCheck(this)">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Gramatika (Ser/Estar)</td>
+                        <td>10 min</td>
+                        <td><span class="check" onclick="toggleCheck(this)">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Počúvanie (dialóg)</td>
+                        <td>5 min</td>
+                        <td><span class="check" onclick="toggleCheck(this)">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Speaking (nahrať sa)</td>
+                        <td>5 min</td>
+                        <td><span class="check" onclick="toggleCheck(this)">✓</span></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="btn">ZAČAŤ 30-MIN REŽIM ▶️</div>
+        </div>
+        
+        <!-- ROZPRÁVANIE -->
+        <div id="speaking" class="hidden">
+            <div class="back-btn" onclick="showSection('home')">← Späť</div>
+            <div class="section">
+                <div class="section-title">Rozprávanie</div>
+                <div style="font-size: 16px; font-weight: bold; margin: 15px 0;">Veta: "Eu sou z Prahy"</div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Tréning</div>
+                <div class="btn" style="background: #667eea;">🎧 POČÚVAJ VZOR</div>
+                <div class="btn" style="background: #28a745;">📷 NAHRAJ SA</div>
+                <div class="btn" style="background: #764ba2;">🔍 POROVNAJ</div>
+                <div class="btn" style="background: #ff6b6b;">🔄 SKÚS ZNOVA</div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Skóre</div>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 48px; font-weight: bold; color: #667eea;">78/100</div>
+                    <div style="font-size: 14px; color: #666; margin-top: 5px;">🎯 Dobré</div>
+                </div>
+                
+                <div class="speaking-score">
+                    <div class="score-item">
+                        <div class="score-label">Zrozumiteľnosť</div>
+                        <div class="score-value">30/40</div>
+                        <div class="score-bar"><div class="score-fill" style="width: 75%"></div></div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Presnosť hlások</div>
+                        <div class="score-value">15/20</div>
+                        <div class="score-bar"><div class="score-fill" style="width: 75%"></div></div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Rytmus/intonácia</div>
+                        <div class="score-value">14/20</div>
+                        <div class="score-bar"><div class="score-fill" style="width: 70%"></div></div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Plynulosť</div>
+                        <div class="score-value">8/10</div>
+                        <div class="score-bar"><div class="score-fill" style="width: 80%"></div></div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; font-size: 13px; color: #666;">
+                    <strong>Zelené:</strong> Eu, sou, z<br>
+                    <strong>Žlté:</strong> Prahy<br>
+                    <strong>Chyba:</strong> dôraz na 2. slabiku
+                </div>
+            </div>
+        </div>
+        
+        <!-- OPÁKOVANIE -->
+        <div id="opakovanie" class="hidden">
+            <div class="back-btn" onclick="showSection('home')">← Späť</div>
+            <div class="section">
+                <div class="section-title">Slovíčka (Anki)</div>
+                <div style="font-size: 14px; color: #666; margin-bottom: 15px;">
+                    Dnes: 5-10 nových slov<br>
+                    Staré: 20 slov na opakovanie
+                </div>
+                
+                <div class="vocab-card">
+                    <div>
+                        <div class="vocab-pt">mãe</div>
+                        <div class="vocab-sk">matka</div>
+                    </div>
+                    <div class="vocab-status">✓</div>
+                </div>
+                
+                <div class="vocab-card">
+                    <div>
+                        <div class="vocab-pt">pai</div>
+                        <div class="vocab-sk">otcov</div>
+                    </div>
+                    <div class="vocab-status">✓</div>
+                </div>
+                
+                <div class="vocab-card">
+                    <div>
+                        <div class="vocab-pt">irmão</div>
+                        <div class="vocab-sk">brat</div>
+                    </div>
+                    <div class="vocab-status fail">✗</div>
+                </div>
+                
+                <div class="vocab-card">
+                    <div>
+                        <div class="vocab-pt">pão</div>
+                        <div class="vocab-sk">chlieb</div>
+                    </div>
+                    <div class="vocab-status">✓</div>
+                </div>
+                
+                <div class="btn" style="background: #667eea;">📖 OPEN ANKI</div>
+            </div>
+        </div>
+        
+        <!-- PROGRES -->
+        <div id="progres" class="hidden">
+            <div class="back-btn" onclick="showSection('home')">← Späť</div>
+            
+            <div class="section">
+                <div class="section-title">Tracker dní (12 týždňov)</div>
+                <table class="tracker-table">
+                    <tr>
+                        <th>Deň</th>
+                        <th>Téma</th>
+                        <th>Splnené</th>
+                    </tr>
+                    <tr>
+                        <td>Pon 8.6</td>
+                        <td>Ser/Estar</td>
+                        <td><span class="check checked">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ut 9.6</td>
+                        <td>Prítomný</td>
+                        <td><span class="check" onclick="toggleCheck(this)">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>St 10.6</td>
+                        <td>Členy</td>
+                        <td><span class="check" onclick="toggleCheck(this)">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Št 11.6</td>
+                        <td>Predložky</td>
+                        <td><span class="check" onclick="toggleCheck(this)">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Pia 12.6</td>
+                        <td>Opakovanie</td>
+                        <td><span class="check" onclick="toggleCheck(this)">✓</span></td>
+                    </tr>
+                </table>
+                
+                <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                    <strong>Streak:</strong> ⭐ 3 dni ✅<br>
+                    <strong>Splnené dni:</strong> 1/5 (20%)
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">12-týždňový plán</div>
+                <div class="week-item">
+                    <div class="week-title">Týždeň 1</div>
+                    <div class="week-topic">Základy: ser/estar, prítomný čas</div>
+                </div>
+                <div class="week-item">
+                    <div class="week-title">Týždeň 2</div>
+                    <div class="week-topic">Prítomný čas, členy, zámená</div>
+                </div>
+                <div class="week-item">
+                    <div class="week-title">Týždeň 3</div>
+                    <div class="week-topic">Predložky, otázky</div>
+                </div>
+                <div class="week-item">
+                    <div class="week-title">Týždeň 4</div>
+                    <div class="week-topic">Opakovanie + mini test</div>
+                </div>
+                <div class="week-item">
+                    <div class="week-title">Týždeň 5</div>
+                    <div class="week-topic">Minulý čas (pretérito)</div>
+                </div>
+                <div class="week-item">
+                    <div class="week-title">Týždeň 6</div>
+                    <div class="week-topic">Minulý čas + budúcnosť</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Progres týždňa</div>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 48px; font-weight: bold; color: #667eea;">43%</div>
+                    <div style="font-size: 14px; color: #666; margin-top: 5px;">📈 3/7 dní</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 43%"></div>
+                </div>
+            </div>
+            
+            <div class="btn" style="background: #ff6b6b;">🏆 TÝŽDENNÁ ODMENA</div>
+        </div>
+    </div>
+    
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.getElementById('home').classList.add('hidden');
+            document.getElementById('lekcia').classList.add('hidden');
+            document.getElementById('speaking').classList.add('hidden');
+            document.getElementById('opakovanie').classList.add('hidden');
+            document.getElementById('progres').classList.add('hidden');
+            
+            // Show selected section
+            if (sectionId === 'home') {
+                document.getElementById('home').classList.remove('hidden');
+            } else {
+                document.getElementById(sectionId).classList.remove('hidden');
+            }
+        }
+        
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+        }
+    </script>
+</body>
+</html>
