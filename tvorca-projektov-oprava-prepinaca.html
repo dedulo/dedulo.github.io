@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tvorca Projektov – funkčné preview</title>
+  <style>
+    :root { --bg:#0b1020; --card:#151d35; --text:#f7f8ff; --muted:#b6bfd7; --accent:#8b5cf6; --cyan:#38bdf8; --line:rgba(255,255,255,.12); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-height:100vh; color:var(--text); font-family:Arial,Helvetica,sans-serif; background:radial-gradient(circle at 12% 10%,rgba(56,189,248,.2),transparent 25rem),radial-gradient(circle at 90% 15%,rgba(139,92,246,.24),transparent 28rem),var(--bg); }
+    .page { width:min(1100px,calc(100% - 36px)); margin:auto; padding:24px 0 42px; }
+    header { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-bottom:44px; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:800; font-size:1.1rem; }
+    .mark { display:grid; place-items:center; width:42px; height:42px; border-radius:14px; background:linear-gradient(135deg,var(--accent),var(--cyan)); font-size:1.25rem; }
+    select { color:var(--text); background:#111a31; border:1px solid var(--line); border-radius:12px; padding:11px 14px; font:inherit; cursor:pointer; }
+    main { display:grid; grid-template-columns:1.35fr .65fr; gap:24px; }
+    .hero,.side,.projects { border:1px solid var(--line); background:rgba(21,29,53,.8); border-radius:28px; box-shadow:0 20px 60px rgba(0,0,0,.28); }
+    .hero { padding:clamp(30px,6vw,70px); }
+    .tag { color:#c7d2fe; font-weight:800; letter-spacing:.11em; text-transform:uppercase; font-size:.8rem; }
+    h1 { margin:18px 0 0; font-size:clamp(2.6rem,5.4vw,5.6rem); line-height:.98; letter-spacing:-.07em; }
+    .gradient { background:linear-gradient(90deg,#c4b5fd,#7dd3fc); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .intro { max-width:700px; margin:28px 0; font-size:1.14rem; line-height:1.75; color:var(--muted); }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:50px; padding:0 20px; border-radius:14px; font-weight:800; text-decoration:none; color:white; cursor:pointer; }
+    .primary { background:linear-gradient(135deg,var(--accent),#4f7cff); }
+    .secondary { border:1px solid var(--line); background:rgba(255,255,255,.05); }
+    .side { padding:30px; display:flex; flex-direction:column; justify-content:space-between; gap:42px; }
+    .icon { width:58px; height:58px; display:grid; place-items:center; border-radius:19px; font-size:1.7rem; background:linear-gradient(135deg,rgba(139,92,246,.3),rgba(56,189,248,.28)); }
+    h2 { font-size:1.6rem; letter-spacing:-.04em; margin:22px 0 10px; }
+    .side p { color:var(--muted); line-height:1.65; }
+    .contact { border-top:1px solid var(--line); padding-top:22px; }
+    .label { display:block; color:#98a5c5; font-size:.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+    .mail { color:#b9dcff; font-weight:750; text-decoration:none; overflow-wrap:anywhere; }
+    .projects { margin-top:24px; padding:clamp(28px,5vw,52px); text-align:center; }
+    .projects h2 { margin:0; font-size:clamp(2rem,4vw,3.15rem); }
+    .projects p { max-width:560px; margin:15px auto 0; color:var(--muted); line-height:1.7; }
+    .construction { display:inline-flex; align-items:center; gap:10px; margin-top:27px; padding:12px 16px; border:1px solid rgba(125,211,252,.25); background:rgba(56,189,248,.1); color:#d8f3ff; border-radius:999px; font-weight:800; }
+    .dot { width:10px; height:10px; border-radius:50%; background:#fbbf24; box-shadow:0 0 0 5px rgba(251,191,36,.12); }
+    footer { color:#8f9ab8; display:flex; justify-content:space-between; gap:16px; margin-top:24px; font-size:.87rem; }
+    @media(max-width:800px){ main{grid-template-columns:1fr;} header{margin-bottom:28px;} }
+    @media(max-width:480px){ header,footer{flex-direction:column;align-items:flex-start;} .page{width:min(100% - 26px,680px);} select{width:100%;} }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand"><span class="mark">✦</span><span>Tvorca Projektov</span></div>
+      <select id="languageSelect">
+        <option value="sk">🇸🇰 Slovenčina</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="cs">🇨🇿 Čeština</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="pt">🇵🇹 Português</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="ja">🇯🇵 日本語</option>
+      </select>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="tag" id="tag">● Nezávislý tvorca</div>
+        <h1 id="headline">Ahoj, som<br><span class="gradient">Tvorca Projektov.</span></h1>
+        <p class="intro" id="intro">V rámci voľného času tvorím aplikácie a utility. Baví ma vymýšľať a realizovať projekty, ktoré mám na mysli, napadnú ma vo voľnom čase a rád by som sa o ne podelil s ostatnými. Moje projekty nájdeš v sekcii Projekty.</p>
+        <div class="actions">
+          <a class="button primary" id="projectsButton" href="#projekty">Pozrieť projekty →</a>
+          <a class="button secondary" id="coffeeButton" href="https://www.buymeacoffee.com/" target="_blank" rel="noopener">☕ Pozvi ma na kávu</a>
+        </div>
+      </section>
+
+      <aside class="side">
+        <div><div class="icon">☕</div><h2 id="supportTitle">Podpora tvorby</h2><p id="supportText">Ak sa ti moje projekty páčia, sleduj túto stránku alebo ma môžeš pozvať na symbolickú kávu. Aj malá podpora pomáha prinášať ďalšie nápady.</p></div>
+        <div class="contact"><span class="label" id="contactLabel">Kontakt</span><a class="mail" href="mailto:tvarcaprojektov@gmail.com">tvarcaprojektov@gmail.com</a></div>
+      </aside>
+    </main>
+
+    <section class="projects" id="projekty">
+      <div class="tag" id="projectsTag">Projekty</div>
+      <h2 id="projectsTitle">Na projektoch sa <span class="gradient">pracuje.</span></h2>
+      <p id="projectsText">Pripravujem miesto, kde postupne zverejním svoje aplikácie, utility a ďalšie nápady. Vráť sa sem čoskoro.</p>
+      <div class="construction"><span class="dot"></span><span id="constructionText">Pracuje sa na tom</span></div>
+    </section>
+
+    <footer><span id="footerText">Tvorené vo voľnom čase, s nápadmi navyše.</span><span>© 2026 Tvorca Projektov</span></footer>
+  </div>
+
+  <script>
+    const data = {
+      sk: ['● Nezávislý tvorca','Ahoj, som<br><span class="gradient">Tvorca Projektov.</span>','V rámci voľného času tvorím aplikácie a utility. Baví ma vymýšľať a realizovať projekty, ktoré mám na mysli, napadnú ma vo voľnom čase a rád by som sa o ne podelil s ostatnými. Moje projekty nájdeš v sekcii Projekty.','Pozrieť projekty →','☕ Pozvi ma na kávu','Podpora tvorby','Ak sa ti moje projekty páčia, sleduj túto stránku alebo ma môžeš pozvať na symbolickú kávu. Aj malá podpora pomáha prinášať ďalšie nápady.','Kontakt','Projekty','Na projektoch sa <span class="gradient">pracuje.</span>','Pripravujem miesto, kde postupne zverejním svoje aplikácie, utility a ďalšie nápady. Vráť sa sem čoskoro.','Pracuje sa na tom','Tvorené vo voľnom čase, s nápadmi navyše.'],
+      en: ['● Independent maker','Hi, I am a<br><span class="gradient">Project Maker.</span>','In my free time, I create apps and useful tools. I enjoy turning ideas into real projects and sharing what I build with others. You can find my work in the Projects section.','Explore projects →','☕ Buy me a coffee','Support my work','If you enjoy my projects, follow this page or invite me for a symbolic coffee. Even small support helps turn more ideas into reality.','Contact','Projects','Projects are <span class="gradient">in progress.</span>','I am preparing a place to gradually publish my apps, useful tools, and other ideas. Please come back soon.','Work in progress','Made in free time, with extra ideas.'],
+      cs: ['● Nezávislý tvůrce','Ahoj, jsem<br><span class="gradient">Tvůrce Projektů.</span>','Ve volném čase vytvářím aplikace a utility. Baví mě vymýšlet a realizovat projekty a sdílet je s ostatními. Moje projekty najdeš v sekci Projekty.','Zobrazit projekty →','☕ Pozvi mě na kávu','Podpora tvorby','Pokud se ti moje projekty líbí, sleduj tuto stránku nebo mě můžeš pozvat na symbolickou kávu.','Kontakt','Projekty','Na projektech se <span class="gradient">pracuje.</span>','Připravuji místo, kde postupně zveřejním své aplikace, utility a další nápady. Vrať se sem brzy.','Pracuje se na tom','Tvořeno ve volném čase a s nápady navíc.'],
+      de: ['● Unabhängiger Entwickler','Hallo, ich bin ein<br><span class="gradient">Projektmacher.</span>','In meiner Freizeit entwickle ich Apps und nützliche Tools. Ich setze Ideen gerne in echte Projekte um und teile sie mit anderen.','Projekte ansehen →','☕ Spendiere mir einen Kaffee','Meine Arbeit unterstützen','Wenn dir meine Projekte gefallen, folge dieser Seite oder lade mich auf einen symbolischen Kaffee ein.','Kontakt','Projekte','An den Projekten wird <span class="gradient">gearbeitet.</span>','Ich bereite einen Bereich vor, in dem ich nach und nach meine Apps, Tools und Ideen veröffentliche.','In Arbeit','In der Freizeit geschaffen, mit zusätzlichen Ideen.'],
+      es: ['● Creador independiente','Hola, soy un<br><span class="gradient">creador de proyectos.</span>','En mi tiempo libre creo aplicaciones y herramientas útiles. Me gusta convertir ideas en proyectos reales y compartirlas con otras personas.','Ver proyectos →','☕ Invítame a un café','Apoya mi trabajo','Si te gustan mis proyectos, sigue esta página o invítame a un café simbólico.','Contacto','Proyectos','Los proyectos están <span class="gradient">en desarrollo.</span>','Estoy preparando un espacio para publicar poco a poco mis aplicaciones, herramientas y otras ideas.','En desarrollo','Creado en mi tiempo libre, con ideas extra.'],
+      pt: ['● Criador independente','Olá, sou um<br><span class="gradient">criador de projetos.</span>','No meu tempo livre, crio aplicações e ferramentas úteis. Gosto de transformar ideias em projetos reais e partilhá-los com outras pessoas.','Ver projetos →','☕ Paga-me um café','Apoie o meu trabalho','Se gosta dos meus projetos, siga esta página ou ofereça-me um café simbólico.','Contacto','Projetos','Os projetos estão <span class="gradient">em desenvolvimento.</span>','Estou a preparar um espaço para publicar gradualmente as minhas aplicações, ferramentas e outras ideias.','Em desenvolvimento','Criado no tempo livre, com ideias extra.'],
+      fr: ['● Créateur indépendant','Bonjour, je suis un<br><span class="gradient">créateur de projets.</span>','Pendant mon temps libre, je crée des applications et des outils utiles. J’aime transformer mes idées en projets concrets et les partager avec les autres.','Voir les projets →','☕ M’offrir un café','Soutenir mes créations','Si vous appréciez mes projets, suivez cette page ou offrez-moi un café symbolique.','Contact','Projets','Les projets sont <span class="gradient">en cours.</span>','Je prépare un espace où je publierai progressivement mes applications, outils et autres idées.','En cours','Créé pendant mon temps libre, avec des idées en plus.'],
+      it: ['● Creatore indipendente','Ciao, sono un<br><span class="gradient">creatore di progetti.</span>','Nel tempo libero creo applicazioni e strumenti utili. Mi piace trasformare le idee in progetti reali e condividerli con gli altri.','Scopri i progetti →','☕ Offrimi un caffè','Sostieni il mio lavoro','Se ti piacciono i miei progetti, segui questa pagina oppure offrimi un caffè simbolico.','Contatto','Progetti','I progetti sono <span class="gradient">in lavorazione.</span>','Sto preparando uno spazio dove pubblicherò gradualmente le mie applicazioni, i miei strumenti e altre idee.','Lavori in corso','Creato nel tempo libero, con idee in più.'],
+      pl: ['● Niezależny twórca','Cześć, jestem<br><span class="gradient">twórcą projektów.</span>','W wolnym czasie tworzę aplikacje i przydatne narzędzia. Lubię zamieniać pomysły w prawdziwe projekty i dzielić się nimi z innymi.','Zobacz projekty →','☕ Postaw mi kawę','Wesprzyj moją twórczość','Jeśli podobają Ci się moje projekty, obserwuj tę stronę lub postaw mi symboliczną kawę.','Kontakt','Projekty','Projekty są <span class="gradient">w trakcie tworzenia.</span>','Przygotowuję miejsce, w którym będę stopniowo publikować moje aplikacje, narzędzia i kolejne pomysły.','Prace w toku','Tworzone w wolnym czasie, z dodatkowymi pomysłami.'],
+      ja: ['● インディペンデント・クリエイター','こんにちは、私は<br><span class="gradient">プロジェクトクリエイター</span>です。','自由な時間に、アプリや便利なツールを作っています。アイデアを実際のプロジェクトに形にし、他の人と共有することが好きです。','プロジェクトを見る →','☕ コーヒーをごちそうする','活動を応援する','私のプロジェクトを気に入っていただけたら、このページをフォローするか、コーヒーで応援してください。','お問い合わせ','プロジェクト','プロジェクトは<span class="gradient">準備中です。</span>','アプリ、便利なツール、その他のアイデアを少しずつ公開する場所を準備しています。','準備中','自由な時間に、たくさんのアイデアとともに制作。']
+    };
+
+    const elementIds = ['tag','headline','intro','projectsButton','coffeeButton','supportTitle','supportText','contactLabel','projectsTag','projectsTitle','projectsText','constructionText','footerText'];
+    const languageSelect = document.getElementById('languageSelect');
+
+    function translate(language) {
+      const values = data[language] || data.sk;
+      for (let i = 0; i < elementIds.length; i++) {
+        document.getElementById(elementIds[i]).innerHTML = values[i];
+      }
+      document.documentElement.lang = language;
+    }
+
+    languageSelect.addEventListener('change', function () {
+      translate(this.value);
+    });
+  </script>
+</body>
+</html>
